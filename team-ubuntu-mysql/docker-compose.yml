@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mariadb:
+    image: mysql
+    ports:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rundeck123.
+      - MYSQL_USER=rundeck
+      - MYSQL_PASSWORD=rundeck123.
+      - MYSQL_DATABASE=rundeckdb
+  rundeck-team:
+    build: rundeck
+    ports:
+     - "4440:4440"
+    links:
+      - mariadb
+    environment:
+      - RUNDECK_URL=http://localhost:4440
+      - CONFIG_SCRIPT_PRESTART=scripts/config_db.sh,scripts/config_logstorage.sh,scripts/config_log4j.sh,scripts/config_realm.sh
+      - DATABASE_DRIVER=com.mysql.jdbc.Driver
+      - DATABASE_URL=jdbc:mysql://mariadb:3306/rundeckdb?autoReconnect=true&useUnicode=yes
+      - DATABASE_USER=rundeck
+      - DATABASE_PASS=rundeck123.
+      - DATABASE_DIALECT=org.hibernate.dialect.MySQL5InnoDBDialect
