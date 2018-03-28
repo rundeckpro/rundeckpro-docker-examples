@@ -15,9 +15,14 @@ run_helpers() {
 }
 
 
+# call the DB settings
+run_helpers "prestart" "scripts/config_database.sh"
+
+
 # RUN TEST PRESTART SCRIPT
 if [[ -n "$CONFIG_SCRIPT_PRESTART" ]]
 then
+
   config_scripts=( ${CONFIG_SCRIPT_PRESTART//,/ } )
 
   run_helpers "prestart" "${config_scripts[@]}"

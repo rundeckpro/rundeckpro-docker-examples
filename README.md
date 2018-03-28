@@ -1,8 +1,24 @@
 # Rundeck PRO Docker Examples
 
 
-## Team / Ubuntu / Mysql
+## Build and Run
 
-* `cd` to team-ubuntu-mysql
+* `cd` to <edition>/<os>`
 
-* start it using `docker-compose up -d`
+* build the image: 
+
+```
+docker build -t rundeck-<edition>-<os> rundeck
+```
+
+* run Rundeck PRO: 
+
+```
+docker run -d --name rundeck-<edition>  -p 4440:4440 \
+         -e RUNDECK_URL=http://localhost:4440 \
+	  -e DATABASE_URL="jdbc:mysql://mysql/rundeckdb?autoReconnect=true" \
+	  -e DATABASE_DRIVER="com.mysql.jdbc.Driver" \
+	  -e DATABASE_USER="rundeckuser" \
+	  -e DATABASE_PASS="password" \
+
+```
