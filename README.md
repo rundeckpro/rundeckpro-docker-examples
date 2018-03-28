@@ -3,8 +3,6 @@
 
 ## Team / Ubuntu / Mysql
 
-* `cd to team-ubuntu-mysql
+* `cd` to team-ubuntu-mysql
 
 * start it using `docker-compose up -d`
-
-``

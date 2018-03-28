@@ -54,7 +54,7 @@ RUN chown -R rundeck:rundeck $HOME/data
 RUN chown -R rundeck:rundeck $HOME/plugins
 RUN chmod -R a+x $HOME/scripts/*
 
-#RUN cp $HOME/plugins/*.* $RDECK_BASE/libext
+RUN cp $HOME/plugins/*.* $RDECK_BASE/libext
 
 EXPOSE 4440
 CMD $HOME/scripts/run.sh
