@@ -3,7 +3,7 @@
 
 ## Build and Run
 
-* `cd` to <edition>/<os>`
+* `cd` to `<edition>-<os>`
 
 * build the image: 
 
