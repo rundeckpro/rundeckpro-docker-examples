@@ -17,7 +17,7 @@ services:
       - mariadb
     environment:
       - RUNDECK_URL=http://localhost:4440
-      - CONFIG_SCRIPT_PRESTART=scripts/config_db.sh,scripts/config_logstorage.sh,scripts/config_log4j.sh,scripts/config_realm.sh
+      - CONFIG_SCRIPT_PRESTART=scripts/config_db.sh,scripts/config_logstorage.sh
       - DATABASE_DRIVER=com.mysql.jdbc.Driver
       - DATABASE_URL=jdbc:mysql://mariadb:3306/rundeckdb?autoReconnect=true&useUnicode=yes
       - DATABASE_USER=rundeck
