@@ -40,6 +40,8 @@ ENV USERNAME=rundeck \
     HOME=/rundeck-install \
     RDECK_BASE=/var/lib/rundeck 
 
+WORKDIR $HOME
+
 RUN mkdir -p $HOME
 RUN mkdir -p $HOME/data
 RUN mkdir -p $HOME/scripts
@@ -47,7 +49,7 @@ RUN mkdir -p $HOME/plugins
 
 COPY data $HOME/data
 COPY scripts $HOME/scripts
-COPY plugins $HOME/libext
+COPY plugins $HOME/plugins
 
 RUN chown -R rundeck:rundeck $HOME/scripts
 RUN chown -R rundeck:rundeck $HOME/data
