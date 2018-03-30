@@ -58,8 +58,6 @@ RUN chmod -R a+x $HOME/scripts/*
 
 RUN cp $HOME/plugins/*.* $RDECK_BASE/libext
 
-
-
 #install license
 RUN mkdir $RDECK_BASE/etc
 RUN chown -R rundeck:rundeck $RDECK_BASE/etc
@@ -67,7 +65,6 @@ RUN chown -R rundeck:rundeck $RDECK_BASE/etc
 RUN test -f $HOME/data/rundeckpro-license.key && \
      cp $HOME/data/rundeckpro-license.key $RDECK_BASE/etc/rundeckpro-license.key || \
      true
-
 
 EXPOSE 4440
 CMD $HOME/scripts/run

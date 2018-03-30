@@ -109,3 +109,73 @@ docker run -d --name rundeck-cluster2  -p 4440 \
           rundeck-cluster-ubuntu 
 	    
 ```
+
+## Load Balancer Example
+
+Here is an example about how use a loadbalancer HAProxy with rundeck
+
+### Create a Docker File
+
+```
+$ mkdir loadbalancer
+$ cd loadbalancer
+$ touch Dockerfile
+$ vi Dockerfile
+
+FROM haproxy:1.7
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+
+```
+
+### Create haproxy.cfg
+
+Here you will configure the load balancer
+
+```
+global
+  log 127.0.0.1 local0
+  log 127.0.0.1 local1 notice
+  log-send-hostname
+  maxconn 4096
+  pidfile /var/run/haproxy.pid
+  daemon
+
+defaults
+  balance roundrobin
+  log global
+  mode http
+  option redispatch
+  option httplog
+  option dontlognull
+  option forwardfor
+
+frontend default_port_80
+  bind :80
+  reqadd X-Forwarded-Proto:\ http
+  maxconn 4096
+  default_backend rundeck_service
+
+backend rundeck_service
+    balance roundrobin
+    cookie JSESSIONID prefix nocache
+    server rundeck-cluster1 rundeck-cluster1:4440 check cookie rundeck-cluster1
+    server rundeck-cluster2 rundeck-cluster2:4440 check cookie rundeck-cluster2
+
+```
+
+### Build the image
+```
+docker build -t lb-haproxy .
+```
+
+### Run the load balancer
+
+```
+docker run -d --name loadbalancer -p 80:80 \
+       --link rundeck-cluster1 \
+       --link rundeck-cluster2 \
+       lb-haproxy
+```
+
+In this example you will access rundeck on `http://localhost:80`.
+The parameter RUNDECK_URL on the rundeck container needs to be set on that value.
