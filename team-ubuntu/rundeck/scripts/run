@@ -16,7 +16,9 @@ run_helpers() {
 
 
 # call the DB settings
-run_helpers "prestart" "scripts/config_database.sh"
+run_helpers "prestart" "scripts/database
+
+"
 
 
 # RUN TEST PRESTART SCRIPT
@@ -32,6 +34,13 @@ fi
 
 #overwrite the serverURL of rundeck
 sed -i 's,grails.serverURL\=.*,grails.serverURL\='${RUNDECK_URL}',g' /etc/rundeck/rundeck-config.properties
+
+#set Hostname
+if [[ -z "$RUNDECK_NODE" ]]; then
+  export RUNDECK_NODE=$(hostname)
+fi
+
+sed -i 's,framework.server.name\s\=\s.*,framework.server.name\='${RUNDECK_NODE}',g' $FWKPROPS
 
 
 service rundeckd start

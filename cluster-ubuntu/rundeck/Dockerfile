@@ -27,12 +27,12 @@ RUN \
  apt-get update && \
  apt-get install -y openjdk-8-jdk 
 
-# Installing rundeck-team
+# Installing rundeck-cluster
 RUN curl https://bintray.com/user/downloadSubjectPublicKey?username=bintray > bintray.key 
 RUN cat bintray.key | apt-key add -
 RUN echo "deb https://rundeckpro.bintray.com/deb stable main" | tee -a /etc/apt/sources.list
 RUN apt-get -y update && \ 
-    apt-get -y install rundeckpro-team
+    apt-get -y install rundeckpro-cluster
 
 
 ENV USERNAME=rundeck \
