@@ -29,7 +29,7 @@
 ### Build the image
 ```
 $ cd cluster-ubuntu
-$ docker build -t rundeck-cluster-ubuntu rundeck
+$ docker build -t rundeck-cluster-ubuntu .
 
 ```
 
@@ -108,9 +108,4 @@ docker run -d --name rundeck-cluster2  -p 4440 \
           -e RUNDECK_REMOTE_DEFAULT_PREFERRED_TAGS="worker" \
           rundeck-cluster-ubuntu 
 	    
-```
-
-
-
-```
 ```

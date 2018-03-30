@@ -8,7 +8,7 @@
 * build the image: 
 
 ```
-docker build -t rundeck-<edition>-<os> rundeck
+docker build -t rundeck-<edition>-<os> .
 ```
 
 * run Rundeck PRO: 
