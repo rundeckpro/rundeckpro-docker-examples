@@ -1,5 +1,23 @@
 # Rundeck PRO Docker Examples
 
+
+**Requirements and Assumptions**
+* This container will use port 4440
+* You will need to define a server URL for Rundeck PRO
+* An external RDB like mariadb, mysql, etc.
+* Set up a log storage like minio or S3 (Optional for Team Edition, Require for Cluster) 
+* You need to choose which edition and OS you want use 
+
+
+**Procedure**
+1. Clone the this repo
+1. Install the License: Put your license on `<edition>-<os>/data` with the name `rundeckpro-license.key`. 
+If you don’t have a license available at this time you can upload it via the GUI later.
+1. Build the image
+1. Run Rundeck PRO Edition
+
+
+
 ## Team Environment 
 
 ### Requirements
