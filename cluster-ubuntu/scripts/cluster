@@ -1,15 +1,15 @@
-
+#!/bin/bash
 
 #setting UUID
 UUID=$(uuidgen)
-sed -i 's,rundeck.server.uuid\s\=\s.*,rundeck.server.uuid\='${UUID}',g' $FWKPROPS
+sed -i 's,rundeck.server.uuid\s\=\s.*,rundeck.server.uuid\='"${UUID}"',g' "$FWKPROPS"
 
 
 
 RUNDECK_AUTORECOVER_ENABLE=${RUNDECK_AUTORECOVER_ENABLE:-true}
 
 # enabling cluster mode
-cat >>$RDPROPS <<END
+cat >>"$RDPROPS" <<END
 
 rundeck.clusterMode.enabled=true
 
@@ -52,7 +52,7 @@ RUNDECK_REMOTE_DEFAULT_ALLOWED=${RUNDECK_REMOTE_DEFAULT_ALLOWED:-other}
 RUNDECK_REMOTE_DEFAULT_ALLOWED_TAGS=${RUNDECK_REMOTE_DEFAULT_ALLOWED_TAGS:-worker}
 RUNDECK_REMOTE_DEFAULT_PREFERRED_TAGS=${RUNDECK_REMOTE_DEFAULT_PREFERRED_TAGS:-worker}
 
-cat - >>$RDPROPS <<END
+cat - >>"$RDPROPS" <<END
 
 # remote execute/abort message processing interval in seconds
 rundeck.clusterMode.remoteExec.process.interval=5
@@ -72,7 +72,7 @@ fi
 
 
 if [ -n "$RUNDECK_SERVER_LABEL" ] ; then
-cat >> $FWKPROPS <<END
+cat >> "$FWKPROPS" <<END
 # Server tags
 rundeck.server.tags=${RUNDECK_SERVER_LABEL:-}
 END

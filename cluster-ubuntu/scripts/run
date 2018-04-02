@@ -1,7 +1,7 @@
 #!/bin/bash
 run_helpers() {
   local -r helper=$1
-  local -a scripts=( ${@:2} )
+  local -a scripts=( "${@:2}" )
 
   for script in "${scripts[@]}"
   do
@@ -27,7 +27,7 @@ run_helpers "prestart" "scripts/logstorage"
 # RUN ANY OTHER PRESTART SCRIPT
 if [[ -n "$CONFIG_SCRIPT_PRESTART" ]]
 then
-  config_scripts=( ${CONFIG_SCRIPT_PRESTART//,/ } )
+  config_scripts=( "${CONFIG_SCRIPT_PRESTART//,/ }" )
 
   run_helpers "prestart" "${config_scripts[@]}"
 else
@@ -35,14 +35,14 @@ else
 fi
 
 #overwrite the serverURL of rundeck
-sed -i 's,grails.serverURL\=.*,grails.serverURL\='${RUNDECK_URL}',g' $RDPROPS
+sed -i 's,grails.serverURL\=.*,grails.serverURL\='"${RUNDECK_URL}"',g' $RDPROPS
 
 #set Hostname
 if [[ -z "$RUNDECK_NODE" ]]; then
-  export RUNDECK_NODE=$(hostname)
+  RUNDECK_NODE=$(hostname)
 fi
 
-sed -i 's,framework.server.name\s\=\s.*,framework.server.name\='${RUNDECK_NODE}',g' $FWKPROPS
+sed -i 's,framework.server.name\s\=\s.*,framework.server.name\='"${RUNDECK_NODE}"',g' "$FWKPROPS"
 
 service rundeckd start
 
